@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>OOP</title>
+
+    <style>
+        p {
+            font-family: 'Comic Sans MS', Arial, sans-serif;
+            font-size: 50px;
+        }
+    </style>
+</head>
+<body>
+
+
+<script>
+    // ООП - объектно-ориентированное программирование.
+    // ООП - является парадигмой программирования
+    // Парадигма - это какая-то модель, шаблон(паттерн), которого необходимо придерживаться при написании программы.
+    // За основу парадигмы ООП взято такое понятие как АБСТРАКЦИЯ
+    // Абстракция - это какая-то не конкретизирующая сущность. Пример: Человек, статьи на сайте, заявка в банке, машина, дома
+    // Все программное обеспечение - это абстракция, скрывающая всю тяжелую работу и детали. Предоставляя пользователю лишь интерфейс взаимодействия.
+
+    // Основной ООП структурно являются КЛАССЫ (появились в ES6)
+    // class - это шаблон, чертеж описания сущности
+
+    /*   class Tank {
+           // внутри класса мы можем создавать:
+           // 1) СВОЙСТВА/properties (поля класса/fields) - по сути, это характеристики сущности. Пример: количество снарядов, кол-во гусениц, скорость
+           // 2) МЕТОДЫ/methods - по сути, это функции внутри класса. Это то, что может делать сущность. Пример: ездить, стрелять, летать
+           // tankName = ''; // объявление поле класса
+           // ammunition = 0; // объявление поле класса
+
+           constructor(tankName, ammunition = 5, ) {
+               this.tankName = tankName;
+               this.ammunition = ammunition;
+           }
+
+           moveTo(x, y) {
+               // this - ключевое слово, позволяющая обращаться к объектам в пределах контекста использования. Т.е. обращение к свойствам и методам класса, внутри самого класса осуществляется через this
+               console.log(`Координаты движения танка ${this.tankName}: (${x}, ${y})`);
+           }
+
+           fireTo(x, y) {
+               console.log(`Открыть огонь по координатам (${x}, ${y})`);
+               if(this._canFire(this.ammunition)) {
+                   this.ammunition -= 1;
+                   console.log(`Снарядов у танка ${this.tankName} осталось ${this.ammunition} снарядов`);
+               } else {
+                   console.log('Снаряды закончились. Стрельба невозможна');
+               }
+           }
+
+
+           // метод для проверки "могу ли стрелять"
+           // если перед методом или свойством написано _ то это свойство или метод являются закрытыми(private) и не должны вызываться за пределами класса. Такое именование чисто условно, и придумано сообществом разработчиков, по факту, этот метод ничем не отличается от других
+           _canFire(ammunition) {
+               return ammunition > 0;
+           }
+       }
+
+       // Tank() - в скобках передаются значения в constructor класса, если конструктора нет, то круглые скобки можно не указывать.
+       const t34 = new Tank('T34', 100); // мы создали экземпляр(объект) класса(сущности) и занесли его в переменную t34. После этого, переменная t34 имеет доступ к свойствам и методам класса Tank
+       t34.moveTo(45, 12);
+       t34.fireTo(11.2, 53);
+       t34.fireTo(541.2, 53);
+       t34.fireTo(21.2, 564);
+       t34.fireTo(61.2, 5);
+       t34.fireTo(176.2, 323);
+
+       const kv = new Tank('Клим Ворошилов', 1);
+       kv.fireTo(34,53);
+       kv.fireTo(34,53); // будет выведно сообщение о невозможности выстрела
+       // kv.ammunition = 895; // можем менять и свойства, но это не всегда стоит делать
+   */
+
+    // ________________________________DZ_26_______________________________________
+    class Marker {
+        constructor(color, ink) {
+            this.color = color;
+            this.ink = ink;
+        }
+
+        print(string) {
+            let i = 0;
+            let res = '';
+            while (this.ink && string[i]) {
+                if (string[i] != ' ') this.ink -= 0.5;
+                res += string[i++];
+            }
+            if (!this.ink) alert("Закончились чернила!");
+
+            const resultBlock = document.createElement('p');
+            resultBlock.style.color = this.color;
+
+
+            resultBlock.innerHTML = res;
+            document.querySelector('body').appendChild(resultBlock);
+        }
+    }
+
+    const greenMarker = new Marker('green', 50);
+    greenMarker.print("метод для печати (метод принимает строку и выводит текст соответствующим цветом;");
+    greenMarker.print("метод для печати (метод принимает строку и выводит текст соответствующим цветом;");
+
+    const redMarker = new Marker('red', 20);
+    redMarker.print("метод для печати (метод принимает строку и выводит текст соответствующим цветом;");
+    redMarker.print("метод для печати (метод принимает строку и выводит текст соответствующим цветом;");
+
+
+    class Employee {
+        constructor(firstName, lastName, age, job, salary) {
+            this.firstName = firstName;
+            this.lastName = lastName;
+            this.age = age;
+            this.job = job;
+            this.salary = salary;
+        }
+    }
+
+    let bankEmployeesList = [new Employee("Алексей", "Петровский", 28, "Главный сотрудник", 12000000),
+        new Employee("Михаил", "Задоров", 58, "Президент", 10000),
+        new Employee("Дмитрий", "Левин", 62, "Заместитель президента", 5000),
+        new Employee("Светлана", "Емельянова", 50, "Член правления", 1500),
+        new Employee("Виктор", "Николаев", 53, "Заместитель президента", 5000)
+    ];
+
+    class EmpTable {
+        constructor(EmployeesList) {
+            this.EmployeesList = EmployeesList;
+        }
+
+        showTable() {
+            let result = (`
+<table border="1">
+    <tr>
+        <th>Фамилия</th>
+        <th>Имя</th>
+        <th>Возраст</th>
+        <th>Должность</th>
+        <th>Зарплата</th>
+    </tr>`)
+            for (let Emp of this.EmployeesList) {
+                result += (`
+    <tr>
+        <td>${Emp.lastName}</td>
+        <td>${Emp.firstName}</td>
+        <td align="center">${Emp.age}</td>
+        <td>${Emp.job}</td>
+        <td>${Emp.salary}</td>
+    </tr>`);
+            }
+            return result + (`
+</table>`);
+        }
+
+        getHtml() {
+            let result = (`<pre>
+&lt;table border="1"&gt;
+    &lt;tr&gt;
+        &lt;th&gt;Фамилия&lt;/th&gt;
+        &lt;th&gt;Имя&lt;/th&gt;
+        &lt;th&gt;Возраст&lt;/th&gt;
+        &lt;th&gt;Должность&lt;/th&gt;
+        &lt;th&gt;Зарплата&lt;/th&gt;
+    &lt;/tr&gt;`)
+            for (let Emp of this.EmployeesList) {
+                result += (`
+    &lt;tr>
+        &lt;td&gt;${Emp.lastName}&lt;/td&gt;
+        &lt;td&gt;${Emp.firstName}&lt;/td&gt;
+        &lt;td align="center"&gt;${Emp.age}&lt;/td&gt;
+        &lt;td&gt;${Emp.job}&lt;/td&gt;
+        &lt;td&gt;${Emp.salary}&lt;/td&gt;
+    &lt;/tr&gt;`);
+            }
+            return result + (`
+&lt;/table&gt; </pre>`);
+        }
+
+    }
+
+    let table = new EmpTable(bankEmployeesList);
+
+    const resultBlock2 = document.createElement('p');
+    resultBlock2.innerHTML = "Таблица и её HTML-код:";
+    document.querySelector('body').appendChild(resultBlock2);
+
+    document.write(table.showTable());
+    document.write(table.getHtml());
+
+
+</script>
+</body>
+</html>
